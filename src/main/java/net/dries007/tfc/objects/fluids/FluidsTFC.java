@@ -39,6 +39,11 @@ public class FluidsTFC
     public static final Fluid LIMEWATER = new Fluid("limewater", STILL, FLOW, 0xFFB4B4B4);
     public static final Fluid TANNIN = new Fluid("tannin", STILL, FLOW, 0xFF63594E);
     public static final Fluid VINEGAR = new Fluid("vinegar", STILL, FLOW, 0xFFC7C2AA);
+    public static final Fluid BRINE = new Fluid("brine", STILL, FLOW, 0xFFDCD3C9);
+    public static final Fluid OLIVE_OIL = new Fluid("olive_oil", STILL, FLOW, 0xFF6A7537).setRarity(EnumRarity.RARE);
+    public static final Fluid MILK = new Fluid("milk", STILL, FLOW, 0xFFFFFFFF);
+    public static final Fluid MILK_CURDLED = new Fluid("milk_curdled", STILL, FLOW, 0xFFFFFBE8);
+    public static final Fluid MILK_VINEGAR = new Fluid("milk_vinegar", STILL, FLOW, 0xFFFFFBE8);
 
     // Alcohols
     public static final Fluid CIDER = new Fluid("cider", STILL, FLOW, 0xFFB0AE32).setRarity(EnumRarity.UNCOMMON);
@@ -113,13 +118,13 @@ public class FluidsTFC
             ImmutableSet.Builder<Fluid> b = ImmutableSet.builder();
 
             registerFluid(b, VINEGAR);
-            registerFluid(b, new Fluid("brine", STILL, FLOW, 0xFFDCD3C9));
-            registerFluid(b, new Fluid("milk", STILL, FLOW, 0xFFFFFFFF));
-            registerFluid(b, new Fluid("olive_oil", STILL, FLOW, 0xFF6A7537).setRarity(EnumRarity.RARE));
+            registerFluid(b, BRINE);
+            registerFluid(b, MILK);
+            registerFluid(b, OLIVE_OIL);
             registerFluid(b, TANNIN);
             registerFluid(b, LIMEWATER);
-            registerFluid(b, new Fluid("milk_curdled", STILL, FLOW, 0xFFFFFBE8));
-            registerFluid(b, new Fluid("milk_vinegar", STILL, FLOW, 0xFFFFFBE8));
+            registerFluid(b, MILK_CURDLED);
+            registerFluid(b, MILK_VINEGAR);
 
             allOtherFiniteFluids = b.build();
         }
