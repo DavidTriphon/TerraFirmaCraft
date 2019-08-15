@@ -36,8 +36,6 @@ import static net.dries007.tfc.api.util.TFCConstants.MOD_ID;
 
 public final class FluidsTFC
 {
-    public static final Material MATERIAL_ALCOHOL = new MaterialLiquid(MapColor.WATER);
-
     private static final ResourceLocation STILL = new ResourceLocation(MOD_ID, "blocks/fluid_still");
     private static final ResourceLocation FLOW = new ResourceLocation(MOD_ID, "blocks/fluid_flow");
 
