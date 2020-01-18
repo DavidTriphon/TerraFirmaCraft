@@ -212,31 +212,33 @@ public class BlockLeavesTFC extends BlockLeaves
         if (world.isRemote || !state.getValue(DECAYABLE))
             return;
 
-        List<BlockPos> paths = new ArrayList<>();
-        List<BlockPos> pathsToAdd;
-        BlockPos.MutableBlockPos pos1 = new BlockPos.MutableBlockPos(pos);
-        IBlockState state1;
-        paths.add(pos); // Center block
+        HashSet<BlockPos> checkedSpaces = new HashSet<>();
+        HashSet<BlockPos> currLayer = new HashSet<>();
+        HashSet<BlockPos> nextLayer;
+        BlockPos.MutableBlockPos targetSpace = new BlockPos.MutableBlockPos(pos);
+        IBlockState targetState;
+        currLayer.add(pos); // Center block
+        checkedSpaces.add(pos);
 
         for (int i = 0; i < wood.getMaxDecayDistance(); i++)
         {
-            pathsToAdd = new ArrayList<>();
-            for (BlockPos p1 : paths)
+            nextLayer = new HashSet<>();
+            for (BlockPos p1 : currLayer)
             {
                 for (EnumFacing face : EnumFacing.values())
                 {
-                    pos1.setPos(p1).move(face);
-                    if (paths.contains(pos1.toImmutable()))
+                    targetSpace.setPos(p1).move(face);
+                    if (checkedSpaces.contains(targetSpace.toImmutable()))
                         continue;
-                    state1 = world.getBlockState(pos1);
-                    if (state1.getBlock() == BlockLogTFC.get(wood))
+                    targetState = world.getBlockState(targetSpace);
+                    if (targetState.getBlock() == BlockLogTFC.get(wood))
                         return;
-                    if (state1.getBlock() == this)
-                        pathsToAdd.add(pos1.toImmutable());
-
+                    if (targetState.getBlock() == this)
+                        nextLayer.add(targetSpace.toImmutable());
+                    checkedSpaces.add(targetSpace);
                 }
             }
-            paths.addAll(pathsToAdd);
+            currLayer = nextLayer;
         }
 
         world.setBlockToAir(pos);
