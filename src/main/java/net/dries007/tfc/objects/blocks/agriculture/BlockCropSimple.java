@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import net.dries007.tfc.api.capability.player.CapabilityPlayerData;
 import net.dries007.tfc.api.types.ICrop;
 import net.dries007.tfc.objects.items.ItemSeedsTFC;
-import net.dries007.tfc.util.Helpers;
 import net.dries007.tfc.util.agriculture.Crop;
 import net.dries007.tfc.util.skills.SimpleSkill;
 import net.dries007.tfc.util.skills.SkillType;
@@ -88,9 +87,9 @@ public abstract class BlockCropSimple extends BlockCropTFC
                 if (!worldIn.isRemote)
                 {
                     worldIn.setBlockState(pos, state.withProperty(getStageProperty(), state.getValue(getStageProperty()) - 3));
-                    Helpers.spawnItemStack(worldIn, pos, foodDrop);
+                    playerIn.addItemStackToInventory(foodDrop);
                     if (!seedDrop.isEmpty())
-                        Helpers.spawnItemStack(worldIn, pos, seedDrop);
+                        playerIn.addItemStackToInventory(seedDrop);
                 }
                 return true;
             }
