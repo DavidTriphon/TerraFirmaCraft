@@ -248,6 +248,7 @@ public abstract class BlockCropTFC extends BlockBush
     public abstract void grow(World worldIn, BlockPos pos, IBlockState state, Random random);
 
     /**
+     * Returns an ItemStack of seeds to be dropped by this crop upon harvest
      *
      * @param world
      * @param pos
