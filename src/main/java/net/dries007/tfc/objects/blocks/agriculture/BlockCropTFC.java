@@ -176,24 +176,18 @@ public abstract class BlockCropTFC extends BlockBush
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
         EntityPlayer player = harvesters.get();
-        ItemStack seedStack = new ItemStack(ItemSeedsTFC.get(crop));
-        ItemStack foodStack = crop.getFoodDrop(state.getValue(getStageProperty()));
+        SimpleSkill skill = null;
 
-        // if player and skills are present, update skills and increase amounts of items depending on skill
+        // if player and skill is present, increase skill
         if (player != null)
         {
-            SimpleSkill skill = CapabilityPlayerData.getSkill(player, SkillType.AGRICULTURE);
-
-            if (skill != null)
-            {
-                if (!foodStack.isEmpty())
-                {
-                    foodStack.setCount(1 + Crop.getSkillFoodBonus(skill, RANDOM));
-                    seedStack.setCount(1 + Crop.getSkillSeedBonus(skill, RANDOM));
-                }
-                skill.add(0.04f);
-            }
+            skill = CapabilityPlayerData.getSkill(player, SkillType.AGRICULTURE);
+            if (skill != null) skill.add(0.04f);
         }
+
+        // use skill and state to determine food and seed drops
+        ItemStack foodStack = getFoodStack(world, pos, state, fortune, skill);
+        ItemStack seedStack = getSeedStack(world, pos, state, fortune, skill, foodStack);
 
         // add items to drop
         if (!foodStack.isEmpty())
@@ -243,7 +237,61 @@ public abstract class BlockCropTFC extends BlockBush
         }
     }
 
+    /**
+     * Tells the crop to 'grow' in whatever manner this crop propagates and develops
+     *
+     * @param worldIn
+     * @param pos
+     * @param state
+     * @param random
+     */
     public abstract void grow(World worldIn, BlockPos pos, IBlockState state, Random random);
+
+    /**
+     *
+     * @param world
+     * @param pos
+     * @param state
+     * @param fortune
+     * @param skill agriculture skill for harvesting crops
+     * @return an ItemStack of all food dropped
+     */
+    public ItemStack getFoodStack(IBlockAccess world, BlockPos pos, IBlockState state, int fortune, @Nullable SimpleSkill skill)
+    {
+        ItemStack foodStack = crop.getFoodDrop(state.getValue(getStageProperty()));
+
+        // if skill and food is present, add food skill bonus count
+        if (skill != null && !foodStack.isEmpty())
+        {
+            foodStack.setCount(1 + Crop.getSkillFoodBonus(skill, RANDOM));
+        }
+
+        return foodStack;
+    }
+
+    /**
+     * Returns an ItemStack of seeds to be dropped by this crop upon harvest
+     *
+     * @param world
+     * @param pos
+     * @param state
+     * @param fortune
+     * @param skill agriculture skill for harvesting crops
+     * @param foodStack the previously calculated dropped food stack
+     * @return an ItemStack of all seeds dropped
+     */
+    public ItemStack getSeedStack(IBlockAccess world, BlockPos pos, IBlockState state, int fortune, @Nullable SimpleSkill skill, ItemStack foodStack)
+    {
+        ItemStack seedStack = new ItemStack(ItemSeedsTFC.get(crop));
+
+        // if skill and food is present, add seed skill bonus count
+        if (skill != null && !foodStack.isEmpty())
+        {
+            seedStack.setCount(1 + Crop.getSkillSeedBonus(skill, RANDOM));
+        }
+
+        return seedStack;
+    }
 
     public void die(World worldIn, BlockPos pos, IBlockState state, Random random)
     {
