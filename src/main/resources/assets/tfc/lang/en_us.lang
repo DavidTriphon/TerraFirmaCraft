@@ -320,6 +320,9 @@ config.tfc.general.factorAnimalAging.tooltip=How long animals until animals beca
 config.tfc.general.chanceAnimalDeath=Animal Death Chance
 config.tfc.general.chanceAnimalDeath.tooltip=Chance of animal dying (checked every in-game day) after it became old
 
+config.tfc.general.stoneAxeLogReturnRate=Stone Axe Log Return Rate
+config.tfc.general.stoneAxeLogReturnRate.tooltip=Log return rate of stone axes (eg: How efficiently it is)
+
 
 
 ## Client Config
@@ -361,10 +364,13 @@ config.tfc.world.debugWorldGen=Debug Worldgen (DANGER)
 config.tfc.world.debugWorldGen.tooltip=Debug worldgen [DANGER] Your world will be affected! Do not use on your proper world files!
 
 config.tfc.world.latitudeTemperatureModifier=Latitude Temperature Modifier
-config.tfc.world.latitudeTemperatureModifier.tooltip=This controls the size of the temperature regions. The size of each temperature zone is determined by a sin wave. This represents half the period of the wave = the distance between hot and cold bands, in blocks
+config.tfc.world.latitudeTemperatureModifier.tooltip=This controls the size of the temperature regions. The size of each temperature zone is determined by a sin wave. This represents the period of the wave.
 
 config.tfc.world.clayRarity=Clay Deposity Rarity
 config.tfc.world.clayRarity.tooltip=The rarity for clay pits to occur. On average 1 / N chunks will have a clay deposit, if the chunk in question is valid for clay to spawn.
+
+config.tfc.world.clayRainfallThreshold=Clay Rainfall Threshold
+config.tfc.world.clayRainfallThreshold.tooltip=The minimum rainfall in an area required for clay to spawn. By default this is the same threshold as dry grass.
 
 config.tfc.world.looseRocksFrequency=Loose Rocks Frequency
 config.tfc.world.looseRocksFrequency.tooltip=The number of attempts per chunk to spawn loose rocks. Includes surface ore samples.
@@ -551,6 +557,7 @@ jei.category.tfc.anvil=Anvil recipes
 jei.category.tfc.barrel=Barrel recipes
 jei.category.tfc.blast_furnace=Blast Furnace recipes
 jei.category.tfc.bloomery=Bloomery recipes
+jei.category.tfc.casting=Casting recipes
 jei.category.tfc.heat=Heating recipes
 jei.category.tfc.knap.clay=Clay knapping
 jei.category.tfc.knap.fireclay=Fire clay knapping

@@ -16,6 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import net.dries007.tfc.api.capability.player.CapabilityPlayerData;
 import net.dries007.tfc.api.types.ICrop;
@@ -87,9 +88,9 @@ public abstract class BlockCropSimple extends BlockCropTFC
                 if (!worldIn.isRemote)
                 {
                     worldIn.setBlockState(pos, state.withProperty(getStageProperty(), state.getValue(getStageProperty()) - 3));
-                    playerIn.addItemStackToInventory(foodDrop);
+                    ItemHandlerHelper.giveItemToPlayer(playerIn, foodDrop);
                     if (!seedDrop.isEmpty())
-                        playerIn.addItemStackToInventory(seedDrop);
+                        ItemHandlerHelper.giveItemToPlayer(playerIn, seedDrop);
                 }
                 return true;
             }
