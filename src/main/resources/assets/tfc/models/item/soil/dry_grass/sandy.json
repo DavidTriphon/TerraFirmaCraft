@@ -1,4 +1,9 @@
 {
   "__comment__": "This file was automatically created by mcresources",
-  "parent": "tfc:block/soil/dry_grass/sandy"
+  "parent": "tfc:block/soil/dry_grass/inventory",
+  "textures": {
+    "grass_top": "tfc:block/soil/dry_grass/top",
+    "grass_side": "tfc:block/soil/dry_grass/side",
+    "dirt": "tfc:block/soil/dirt/sandy"
+  }
 }

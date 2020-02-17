@@ -2,7 +2,8 @@
   "__comment__": "This file was automatically created by mcresources",
   "parent": "block/block",
   "textures": {
-    "grass": "tfc:block/soil/grass/top"
+    "grass": "tfc:block/soil/grass/top",
+    "particle": "#dirt"
   },
   "elements": [
     {

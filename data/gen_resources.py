@@ -4,13 +4,26 @@ import data.constants as tfc
 
 
 def manual_blockstate_multipart(
-        rsrc_mngr: mcr.ResourceManager,
-        name_parts: mcr.utils.Sequence[str],
-        parts: mcr.utils.Sequence[mcr.utils.Json]
+    rsrc_mngr: mcr.ResourceManager,
+    name_parts: mcr.utils.Sequence[str],
+    parts: mcr.utils.Sequence[mcr.utils.Json]
 ):
     mcr.utils.write(
         (*rsrc_mngr.resource_dir, 'assets', rsrc_mngr.domain, 'blockstates', *mcr.utils.str_path(name_parts)),
         {'multipart': parts},
+        rsrc_mngr.indent
+    )
+
+
+def manual_item_model(
+    rsrc_mngr: mcr.ResourceManager,
+    name_parts: mcr.utils.Sequence[str],
+    textures: mcr.utils.Union[mcr.utils.Json, str],
+    parent: str = 'item/generated'
+):
+    mcr.utils.write(
+        (*rsrc_mngr.resource_dir, 'assets', rsrc_mngr.domain, 'models', 'item', *mcr.utils.str_path(name_parts)),
+        {'parent': parent, 'textures': textures},
         rsrc_mngr.indent
     )
 
@@ -67,7 +80,9 @@ def main():
             'north': {'texture': '#grass', 'cullface': 'north', 'tintindex': 0}
         }
     }])
-    rm.block_model(('soil', 'grass', 'center', 'template'), {'grass': 'tfc:block/soil/grass/top'}, 'block/block', [{
+    rm.block_model(('soil', 'grass', 'center', 'template'), {
+        'grass': 'tfc:block/soil/grass/top', 'particle': '#dirt'
+    }, 'block/block', [{
         'from': [0, 0, 0],
         'to': [16, 16, 16],
         'faces': {
@@ -117,6 +132,51 @@ def main():
     }])
     rm.block_model(('soil', 'dry_grass', 'blend'), {'all': 'tfc:block/soil/dry_grass/top'}, 'tfc:block/north_tint')
     rm.block_model(('soil', 'dry_grass', 'side'), {'all': 'tfc:block/soil/dry_grass/side'}, 'tfc:block/north_tint')
+
+    # inventory model for dry_grass and grass blocks
+    rm.block_model(('soil', 'grass', 'inventory'), {}, 'block/block', [{
+        'from': [0, 0, 0],
+        'to': [16, 16, 16],
+        'faces': {
+            'down': {'texture': '#dirt', 'cullface': 'down'},
+            'north': {'texture': '#dirt', 'cullface': 'north'},
+            'south': {'texture': '#dirt', 'cullface': 'south'},
+            'west': {'texture': '#dirt', 'cullface': 'west'},
+            'east': {'texture': '#dirt', 'cullface': 'east'}
+        }
+    }, {
+        'from': [0, 0, 0],
+        'to': [16, 16, 16],
+        'faces': {
+            'up': {'texture': '#grass_top', 'cullface': 'up', 'tintindex': 0},
+            'north': {'texture': '#grass_side', 'cullface': 'north', 'tintindex': 0},
+            'south': {'texture': '#grass_side', 'cullface': 'south', 'tintindex': 0},
+            'west': {'texture': '#grass_side', 'cullface': 'west', 'tintindex': 0},
+            'east': {'texture': '#grass_side', 'cullface': 'east', 'tintindex': 0}
+        }
+    }])
+    rm.block_model(('soil', 'dry_grass', 'inventory'), {}, 'block/block', [{
+        'from': [0, 0, 0],
+        'to': [16, 16, 16],
+        'faces': {
+            'up': {'texture': '#dirt', 'cullface': 'up'},
+            'down': {'texture': '#dirt', 'cullface': 'down'},
+            'north': {'texture': '#dirt', 'cullface': 'north'},
+            'south': {'texture': '#dirt', 'cullface': 'south'},
+            'west': {'texture': '#dirt', 'cullface': 'west'},
+            'east': {'texture': '#dirt', 'cullface': 'east'}
+        }
+    }, {
+        'from': [0, 0, 0],
+        'to': [16, 16, 16],
+        'faces': {
+            'up': {'texture': '#grass_top', 'cullface': 'up', 'tintindex': 0},
+            'north': {'texture': '#grass_side', 'cullface': 'north', 'tintindex': 0},
+            'south': {'texture': '#grass_side', 'cullface': 'south', 'tintindex': 0},
+            'west': {'texture': '#grass_side', 'cullface': 'west', 'tintindex': 0},
+            'east': {'texture': '#grass_side', 'cullface': 'east', 'tintindex': 0}
+        }
+    }])
 
     # Soil Variants
     for soilVariant in tfc.SOIL_VARIANTS:
@@ -205,9 +265,20 @@ def main():
                 }]
             )
 
-        # item models and block loots for all dirt blocks
-        for blockType in tfc.DIRT_BLOCK_TYPES + tfc.GRASS_BLOCK_TYPES:
+        # dirt item models
+        for blockType in tfc.DIRT_BLOCK_TYPES:
             rm.block_item_model(('soil', blockType, soilVariant))
+
+        # grass item models
+        for blockType in tfc.GRASS_BLOCK_TYPES:
+            manual_item_model(rm, ('soil', blockType, soilVariant), {
+                'grass_top': 'tfc:block/soil/%s/top' % blockType,
+                'grass_side': 'tfc:block/soil/%s/side' % blockType,
+                'dirt': 'tfc:block/soil/dirt/%s' % soilVariant
+            }, 'tfc:block/soil/%s/inventory' % blockType)
+
+        # block loots for all soil blocks
+        for blockType in tfc.SOIL_BLOCK_TYPES:
             rm.block_loot((blockType, soilVariant), 'tfc:soil/%s/%s' % (blockType, soilVariant))
 
 
