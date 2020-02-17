@@ -1,4 +1,5 @@
 HORIZONTAL_DIRECTIONS = ['east', 'west', 'north', 'south']
+HORIZONTAL_ROTATIONS = {'east': 90, 'south': 180, 'west': 270, 'north': 0}
 
 ROCKS = {
     'chalk': {
@@ -67,5 +68,8 @@ ROCKS = {
 }
 ROCK_BLOCK_TYPES = ['raw', 'bricks', 'cobble', 'gravel', 'smooth']
 SAND_BLOCK_TYPES = ['brown', 'white', 'black', 'red', 'yellow', 'gray']
-SOIL_BLOCK_TYPES = ['dirt', 'grass', 'dry_grass', 'grass_path']
-SOIL_BLOCK_VARIANTS = ['silty', 'sandy', 'loamy', 'clay', 'peat']
+SOIL_VARIANTS = ['silty', 'sandy', 'loamy', 'clay', 'peat']
+
+DIRT_BLOCK_TYPES = ['dirt', 'grass_path']
+GRASS_BLOCK_TYPES = ['grass', 'dry_grass']
+SOIL_BLOCK_TYPES = GRASS_BLOCK_TYPES + DIRT_BLOCK_TYPES

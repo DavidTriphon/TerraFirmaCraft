@@ -1,0 +1,7 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "parent": "tfc:block/soil/dry_grass/base/template",
+  "textures": {
+    "dirt": "tfc:block/soil/dirt/peat"
+  }
+}

@@ -8,7 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tfc:dirt/peat"
+          "name": "tfc:soil/dirt/peat"
         }
       ],
       "conditions": [

@@ -98,7 +98,7 @@ public final class TFCBlocks
             Map<SoilBlockType.Variant, RegistryObject<Block>> inner = new EnumMap<>(SoilBlockType.Variant.class);
             for (SoilBlockType.Variant variant : SoilBlockType.Variant.values())
             {
-                String name = (type.name() + "/" + variant.name()).toLowerCase();
+                String name = ("soil/" + type.name() + "/" + variant.name()).toLowerCase();
                 RegistryObject<Block> block = BLOCKS.register(name, type::create);
                 ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(ROCK_BLOCKS)));
                 inner.put(variant, block);

@@ -1,0 +1,25 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "tfc:block/soil/dirt/silty",
+          "y": 90
+        },
+        {
+          "model": "tfc:block/soil/dirt/silty",
+          "y": 270
+        },
+        {
+          "model": "tfc:block/soil/dirt/silty",
+          "y": 0
+        },
+        {
+          "model": "tfc:block/soil/dirt/silty",
+          "y": 180
+        }
+      ]
+    }
+  ]
+}

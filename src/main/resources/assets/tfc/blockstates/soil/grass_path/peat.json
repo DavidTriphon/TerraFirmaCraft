@@ -1,0 +1,25 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "tfc:block/soil/grass_path/peat",
+          "y": 90
+        },
+        {
+          "model": "tfc:block/soil/grass_path/peat",
+          "y": 270
+        },
+        {
+          "model": "tfc:block/soil/grass_path/peat",
+          "y": 0
+        },
+        {
+          "model": "tfc:block/soil/grass_path/peat",
+          "y": 180
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "parent": "tfc:block/soil/grass_path/template",
+  "textures": {
+    "side": "tfc:block/soil/grass_path/side/sandy",
+    "top": "tfc:block/soil/grass_path/top/sandy",
+    "bottom": "tfc:block/soil/dirt/sandy"
+  }
+}

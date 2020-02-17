@@ -1,0 +1,96 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "tfc:block/soil/dry_grass/base/clay"
+        },
+        {
+          "model": "tfc:block/soil/dry_grass/base/clay",
+          "y": 90
+        },
+        {
+          "model": "tfc:block/soil/dry_grass/base/clay",
+          "y": 180
+        },
+        {
+          "model": "tfc:block/soil/dry_grass/base/clay",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": true
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/blend",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": true
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/blend",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "north": true
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/blend",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "south": true
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/blend",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "east": false
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": false
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/side",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "north": false
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/side",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "south": false
+      },
+      "apply": {
+        "model": "tfc:block/soil/dry_grass/side",
+        "y": 180
+      }
+    }
+  ]
+}

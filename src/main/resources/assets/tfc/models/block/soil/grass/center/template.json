@@ -1,0 +1,32 @@
+{
+  "__comment__": "This file was automatically created by mcresources",
+  "parent": "block/block",
+  "textures": {
+    "grass": "tfc:block/soil/grass/top"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#grass",
+          "cullface": "up",
+          "tintindex": 0
+        },
+        "down": {
+          "texture": "#dirt",
+          "cullface": "down"
+        }
+      }
+    }
+  ]
+}
