@@ -58,7 +58,8 @@
       "faces": {
         "up": {
           "texture": "#grass",
-          "cullface": "up"
+          "cullface": "up",
+          "tintindex": 0
         }
       }
     }

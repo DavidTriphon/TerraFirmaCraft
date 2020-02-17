@@ -1,21 +1,24 @@
-import mcresources
-import mcresources.utils
+import mcresources as mcr
 
 import data.constants as tfc
 
 
-def manual_blockstate_multipart(rsrcMngr: mcresources.ResourceManager, name_parts: mcresources.utils.Sequence[str],
-                                parts: mcresources.utils.Sequence[mcresources.utils.Json]):
-    mcresources.utils.write(
-        (*rsrcMngr.resource_dir, 'assets', rsrcMngr.domain, 'blockstates', *mcresources.utils.str_path(name_parts)), {
-            'multipart': parts
-        }, rsrcMngr.indent)
+def manual_blockstate_multipart(
+        rsrc_mngr: mcr.ResourceManager,
+        name_parts: mcr.utils.Sequence[str],
+        parts: mcr.utils.Sequence[mcr.utils.Json]
+):
+    mcr.utils.write(
+        (*rsrc_mngr.resource_dir, 'assets', rsrc_mngr.domain, 'blockstates', *mcr.utils.str_path(name_parts)),
+        {'multipart': parts},
+        rsrc_mngr.indent
+    )
 
 
 def main():
-    mcresources.clean_generated_resources('../src/main/resources')
+    mcr.clean_generated_resources('../src/main/resources')
 
-    rm = mcresources.ResourceManager('tfc', resource_dir='../src/main/resources')
+    rm = mcr.ResourceManager('tfc', resource_dir='../src/main/resources')
 
     # Rock block variants
     for rock in tfc.ROCKS:
@@ -56,48 +59,26 @@ def main():
     rm.block_model(('soil', 'grass', 'side', 'template'), {'grass': 'tfc:block/soil/grass/side'}, 'block/block', [{
         'from': [0, 0, 0],
         'to': [16, 16, 0],
-        'faces': {
-            'north': {
-                'texture': '#dirt',
-                'cullface': 'north'
-            }
-        }
+        'faces': {'north': {'texture': '#dirt', 'cullface': 'north'}}
     }, {
         'from': [0, 0, 0],
         'to': [16, 16, 0],
         'faces': {
-            'north': {
-                'texture': '#grass',
-                'cullface': 'north',
-                'tintindex': 0
-            }
+            'north': {'texture': '#grass', 'cullface': 'north', 'tintindex': 0}
         }
     }])
     rm.block_model(('soil', 'grass', 'center', 'template'), {'grass': 'tfc:block/soil/grass/top'}, 'block/block', [{
         'from': [0, 0, 0],
         'to': [16, 16, 16],
         'faces': {
-            'up': {
-                'texture': '#grass',
-                'cullface': 'up',
-                'tintindex': 0
-            },
-            'down': {
-                'texture': '#dirt',
-                'cullface': 'down'
-            }
+            'up': {'texture': '#grass', 'cullface': 'up', 'tintindex': 0},
+            'down': {'texture': '#dirt', 'cullface': 'down'}
         }
     }])
     rm.block_model(('soil', 'grass', 'blend'), {'grass': 'tfc:block/soil/grass/top'}, 'block/block', [{
         'from': [0, 0, 0],
         'to': [16, 16, 0],
-        'faces': {
-            'north': {
-                'texture': '#grass',
-                'cullface': 'north',
-                'tintindex': 0
-            }
-        }
+        'faces': {'north': {'texture': '#grass', 'cullface': 'north', 'tintindex': 0}}
     }])
 
     # base grass_path model
@@ -132,9 +113,7 @@ def main():
     }, {
         'from': [0, 16, 0],
         'to': [16, 16, 16],
-        'faces': {
-            'up': {'texture': '#grass', 'cullface': 'up'}
-        }
+        'faces': {'up': {'texture': '#grass', 'cullface': 'up', 'tintindex': 0}}
     }])
     rm.block_model(('soil', 'dry_grass', 'blend'), {'all': 'tfc:block/soil/dry_grass/top'}, 'tfc:block/north_tint')
     rm.block_model(('soil', 'dry_grass', 'side'), {'all': 'tfc:block/soil/dry_grass/side'}, 'tfc:block/north_tint')

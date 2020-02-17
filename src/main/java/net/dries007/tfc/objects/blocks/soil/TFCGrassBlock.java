@@ -9,6 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -59,6 +60,12 @@ public class TFCGrassBlock extends Block
             return stateIn.with(property, TFCBlockTags.GRASS.contains(worldIn.getBlockState(facingPos.down()).getBlock()));
         }
         return stateIn;
+    }
+
+    @Override
+    public BlockRenderLayer getRenderLayer()
+    {
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @Override
