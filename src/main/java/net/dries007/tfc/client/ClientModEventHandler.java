@@ -33,7 +33,6 @@ public class ClientModEventHandler
         BlockColors blockColors = event.getBlockColors();
 
         IBlockColor grassColor = (state, worldIn, pos, tintIndex) -> {
-            LOGGER.debug("called grass color delegate");
             if (pos != null)
             {
                 double temp = 0.5; //MathHelper.clamp((ClimateTFC.getMonthlyTemp(pos) + 30) / 60, 0, 1);
