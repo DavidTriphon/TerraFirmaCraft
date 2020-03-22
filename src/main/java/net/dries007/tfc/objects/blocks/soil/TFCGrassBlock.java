@@ -1,19 +1,16 @@
 package net.dries007.tfc.objects.blocks.soil;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 
 import net.dries007.tfc.util.tags.TFCBlockTags;
 
@@ -50,40 +47,33 @@ public class TFCGrassBlock extends Block
     }
 
     @Override
-    @Nonnull
-    @SuppressWarnings("deprecation")
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos)
+    public boolean isSolid(BlockState state)
     {
-        BooleanProperty property = getPropertyForFace(facing);
-        if (property != null)
-        {
-            return stateIn.with(property, TFCBlockTags.GRASS.contains(worldIn.getBlockState(facingPos.down()).getBlock()));
-        }
-        return stateIn;
+        // this method defaults to using the renderlayer to check whether it's solid.
+        // the block is solid for all intents and purposes, but returns false because we changed the render layer
+        return true;
     }
 
     @Override
     public BlockRenderLayer getRenderLayer()
     {
+        // change the render layer so that grass edges get rendered on top of each other.
         return BlockRenderLayer.CUTOUT_MIPPED;
-    }
-
-    @Override
-    @Nonnull
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        IBlockReader world = context.getWorld();
-        BlockPos pos = context.getPos().down();
-        return getDefaultState()
-            .with(NORTH, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.NORTH)).getBlock()))
-            .with(EAST, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.EAST)).getBlock()))
-            .with(WEST, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.WEST)).getBlock()))
-            .with(SOUTH, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.SOUTH)).getBlock()));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(NORTH, EAST, SOUTH, WEST);
+    }
+
+    @Override
+    public BlockState getExtendedState(BlockState state, IBlockReader world, BlockPos pos)
+    {
+        pos = pos.down();
+        return state.with(NORTH, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.NORTH)).getBlock()))
+            .with(EAST, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.EAST)).getBlock()))
+            .with(WEST, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.WEST)).getBlock()))
+            .with(SOUTH, TFCBlockTags.GRASS.contains(world.getBlockState(pos.offset(Direction.SOUTH)).getBlock()));
     }
 }
